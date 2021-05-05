@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { PostList } from '.';
 
 export default class PostsList extends Component {
   render() {
