@@ -9,3 +9,7 @@ export function getFormBody(params) {
 
   return fromBody.join('&');
 }
+
+export function getAuthTokenFromLocalStorage() {
+  return localStorage.getItem('token');
+}
