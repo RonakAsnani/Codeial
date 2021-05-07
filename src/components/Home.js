@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PostList, FriendsList } from './index';
+import { PostList, FriendsList, Chat } from './index';
 
 export default class Home extends Component {
   render() {
@@ -9,6 +9,7 @@ export default class Home extends Component {
       <div className="home">
         <PostList posts={posts} />
         {isLoggedin && <FriendsList friends={friends} />}
+        {isLoggedin && <Chat />}
       </div>
     );
   }
