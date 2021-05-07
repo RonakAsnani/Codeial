@@ -1,5 +1,10 @@
 import { APIUrls } from '../helpers/urls';
-import { ADD_COMMENT, ADD_POST, UPDATE_POSTS } from './actionTypes';
+import {
+  ADD_COMMENT,
+  ADD_POST,
+  UPDATE_POSTS,
+  UPDATE_POST_LIKE,
+} from './actionTypes';
 import { getAuthTokenFromLocalStorage, getFormBody } from '../helpers/utils';
 
 export function fetchPosts() {
@@ -81,5 +86,32 @@ export function createComment(content, postId) {
           dispatch(addComment(data.data.comment, postId));
         }
       });
+  };
+}
+
+export function addLike(id, likeType, userId) {
+  return (dispatch) => {
+    const url = APIUrls.toggleLike(id, likeType);
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(addLikeToStore(id, userId));
+        }
+      });
+  };
+}
+
+export function addLikeToStore(postId, userId) {
+  return {
+    type: UPDATE_POST_LIKE,
+    postId,
+    userId,
   };
 }
